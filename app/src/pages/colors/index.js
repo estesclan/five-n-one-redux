@@ -1,7 +1,6 @@
 import React from "react";
-import fetch from "isomorphic-fetch";
 import { map } from "ramda";
-import Component from "@reactions/component";
+import { connect } from "react-redux";
 
 const li = color => {
   return (
@@ -11,24 +10,19 @@ const li = color => {
   );
 };
 
-const Colors = ({ match }) => (
-  <Component
-    didMount={({ setState }) =>
-      fetch("http://localhost:5000/colors")
-        .then(res => res.json())
-        .then(colors => setState({ colors: colors }))
-    }
-    initialState={{ colors: [] }}
-  >
-    {({ setState, state }) => {
-      return (
-        <div>
-          <h1>Colors</h1>
-          <ul>{map(li, state.colors)}</ul>
-        </div>
-      );
-    }}
-  </Component>
-);
+const Colors = props => {
+  return (
+    <div>
+      <h1>Colors</h1>
+      <ul>{map(li, props.colors)}</ul>
+    </div>
+  );
+};
 
-export default Colors;
+const mapStateToProps = state => {
+  return { colors: state.colors };
+};
+
+const connector = connect(mapStateToProps);
+
+export default connector(Colors);
