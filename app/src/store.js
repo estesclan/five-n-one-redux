@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { colors } from "./reducers/colors";
+import { colors, currentColor } from "./reducers/colors";
 import { buzzwords } from "./reducers/buzzwords";
 import { emogees } from "./reducers/emogees";
 import { starwars } from "./reducers/starwars";
@@ -12,7 +12,8 @@ export default createStore(
     buzzwords,
     emogees,
     starwars,
-    fortuneCookies
+    fortuneCookies,
+    currentColor
   }),
   applyMiddleware(thunk)
 );
