@@ -7,6 +7,7 @@ import StarWars from "./pages/StarWars";
 import Emogees from "./pages/emogees";
 import FortuneCookies from "./pages/fortuneCookies";
 import ColorForm from "./pages/colors/form";
+import ShowColor from "./pages/colors/show";
 
 const Menu = props => {
   return (
@@ -45,6 +46,7 @@ const App = props => {
           <Route path="/emogees" component={Emogees} />
           <Route path="/fortunecookies" component={FortuneCookies} />
           <Route path="/colors/new" component={ColorForm} />
+          <Route path="/colors/:id" component={ShowColor} />
         </Switch>
       </div>
     </BrowserRouter>

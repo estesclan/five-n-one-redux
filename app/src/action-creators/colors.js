@@ -29,3 +29,10 @@ export const addColor = (color, history) => async (dispatch, getState) => {
 export const chgColor = (field, value) => (dispatch, getState) => {
   dispatch({ type: CHG_CURRENT_COLOR, payload: { [field]: value } });
 };
+
+export const getColor = id => async (dispatch, getState) => {
+  console.log("here's the id", id);
+  const color = await fetch(url + "/" + id).then(res => res.json());
+  console.log("color ", color);
+  dispatch({ type: CHG_CURRENT_COLOR, payload: color });
+};
