@@ -36,3 +36,32 @@ export const getColor = id => async (dispatch, getState) => {
   console.log("color ", color);
   dispatch({ type: CHG_CURRENT_COLOR, payload: color });
 };
+
+export const removeColor = (id, history) => async (dispatch, getState) => {
+  alert("ID in ac", id);
+  const results = await fetch(url + "/" + id, {
+    method: "DELETE"
+  }).then(res => res.json());
+
+  if (results.ok) {
+    dispatch(setColors);
+    history.push("/colors");
+  } else {
+    alert("Dude, removeColor is jacked up in action creators");
+  }
+};
+
+export const updateColor = (color, history) => async (dispatch, getState) => {
+  const result = await fetch(url + "/" + color.id, {
+    headers: {
+      "content-Type": "application/json"
+    },
+    method: "PUT",
+    body: JSON.stringify(color)
+  }).then(res => res.json());
+
+  if (result.ok) {
+    dispatch(setColors);
+    history.push("/colors/" + color.id);
+  }
+};

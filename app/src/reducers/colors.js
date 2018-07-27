@@ -1,6 +1,6 @@
 import { SET_COLORS } from "../constants";
 import { CHG_CURRENT_COLOR } from "../constants";
-import { head } from "ramda";
+import { merge } from "ramda";
 
 export const colors = (state = [], action) => {
   switch (action.type) {
@@ -15,7 +15,7 @@ export const currentColor = (state = [], action) => {
   switch (action.type) {
     case CHG_CURRENT_COLOR:
       console.log(" action.payload", action.payload);
-      return head(action.payload);
+      return merge(state, action.payload);
     default:
       return state;
   }

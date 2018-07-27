@@ -8,6 +8,7 @@ import Emogees from "./pages/emogees";
 import FortuneCookies from "./pages/fortuneCookies";
 import ColorForm from "./pages/colors/form";
 import ShowColor from "./pages/colors/show";
+import EditColorForm from "./pages/colors/edit-form";
 
 const Menu = props => {
   return (
@@ -27,7 +28,7 @@ const Menu = props => {
           <Link to="/fortune-cookies">Fortune Cookies</Link>
         </li>
         <li>
-          <Link to="/emojis">Emojis</Link>
+          <Link to="/emogees">Emojis</Link>
         </li>
       </ul>
     </div>
@@ -41,12 +42,13 @@ const App = props => {
         <Switch>
           <Route exact path="/" component={Menu} />
           <Route exact path="/colors" component={Colors} />
-          <Route path="/buzzwords" component={Buzzwords} />
-          <Route path="/starwars" component={StarWars} />
-          <Route path="/emogees" component={Emogees} />
-          <Route path="/fortunecookies" component={FortuneCookies} />
-          <Route path="/colors/new" component={ColorForm} />
-          <Route path="/colors/:id" component={ShowColor} />
+          <Route exact path="/buzzwords" component={Buzzwords} />
+          <Route exact path="/starwars" component={StarWars} />
+          <Route exact path="/emogees" component={Emogees} />
+          <Route exact path="/fortune-cookies" component={FortuneCookies} />
+          <Route exact path="/colors/new" component={ColorForm} />
+          <Route exact path="/colors/:id/edit" component={EditColorForm} />
+          <Route exact path="/colors/:id" component={ShowColor} />
         </Switch>
       </div>
     </BrowserRouter>

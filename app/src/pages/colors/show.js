@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getColor } from "../../action-creators/colors";
+import { getColor, removeColor } from "../../action-creators/colors";
 import { Link } from "react-router-dom";
 
 class ShowColor extends React.Component {
@@ -22,7 +22,9 @@ class ShowColor extends React.Component {
       >
         <h1>{props.currentColor.name}</h1>
         <Link to={`/colors/${props.currentColor.id}/edit`}>Edit</Link>
-        <button onClick={e => props.removeColor(props.id, props.history)}>
+        <button
+          onClick={e => props.removeColor(props.currentColor.id, props.history)}
+        >
           Remove
         </button>
       </div>
@@ -39,7 +41,11 @@ const mapStateToProps = state => {
 const mapActionsToProps = dispatch => {
   return {
     getColor: id => dispatch(getColor(id)),
-    removeColor: () => null
+    removeColor: (id, history) => {
+      if (window.confirm("Are you sure?")) {
+        dispatch(removeColor(id, history));
+      }
+    }
   };
 };
 

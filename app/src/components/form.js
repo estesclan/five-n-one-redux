@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Form = ({ id, name, value, onChange, cancelURL, onSubmit }) => {
+const Form = ({
+  id = "",
+  name = "",
+  value = "",
+  onChange,
+  cancelURL,
+  onSubmit
+}) => {
   return (
     <form onSubmit={e => onSubmit(e)}>
       <div>

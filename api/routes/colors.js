@@ -1,5 +1,16 @@
 const csscolorsObj = require("css-color-names");
-const { map, keys, prop, isNil, append, filter } = require("ramda");
+const {
+  map,
+  keys,
+  prop,
+  isNil,
+  append,
+  find,
+  reject,
+  compose,
+  equals,
+  propEq
+} = require("ramda");
 const uuid = require("uuid");
 const bodyParser = require("body-parser");
 // create color document
@@ -30,8 +41,33 @@ module.exports = app => {
   app.get("/colors/:id", (req, res) => {
     console.log(
       "filter results:",
-      filter(color => color.id === req.params.id, colors)
+      find(color => color.id === req.params.id, colors)
     );
-    res.send(filter(color => color.id === req.params.id, colors));
+    res.send(find(color => color.id === req.params.id, colors));
+  });
+
+  app.delete("/colors/:id", (req, res) => {
+    console.log("id in the route", req.params.id);
+    colors = reject(
+      compose(
+        equals(req.params.id),
+        prop("id")
+      ),
+      colors
+    );
+    res.send({ ok: true });
+  });
+
+  app.put("/colors/:id", bodyParser.json(), (req, res) => {
+    if (!req.body) {
+      return res
+        .status(500)
+        .send({ ok: false, message: "Color Object Required" });
+    }
+    colors = map(
+      color => (propEq("id", req.params.id, color) ? req.body : color),
+      colors
+    );
+    res.send({ ok: true });
   });
 };
